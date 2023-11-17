@@ -1,8 +1,11 @@
 package com.azdev.amrocenter.controller;
 
 
+import com.azdev.amrocenter.model.Bill;
+//import com.azdev.amrocenter.model.Car;
 import com.azdev.amrocenter.model.Customer;
 import com.azdev.amrocenter.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +46,13 @@ public class CustomerController {
     public ResponseEntity deleteCustomer(@PathVariable Integer id) {
         return ResponseEntity.status(200).body("deleted");
     }
+
+//    @PostMapping("/addCar/{customerId}")
+//    public ResponseEntity assignPart(@PathVariable Integer customerId, @RequestBody @Valid Car car) {
+//        customerService.assignCarToCustomer(customerId, car);
+//        return ResponseEntity.status(200).body("Car added to customer");
+//    }
+
 }
 
 

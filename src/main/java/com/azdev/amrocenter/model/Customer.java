@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -23,8 +25,12 @@ public class Customer {
     private String taxCode;
 
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @JsonIgnore
+    private List<Bill> bill;
+
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-//    private List<Bill> bill;
+//    private List<Car> car;
 
 //    @OneToOne
 //    @MapsId

@@ -29,9 +29,9 @@ public class PartService {
         return partsRepository.findPartsById(id);
     }
 
-    public void addParts(Parts parts) {
-        partsRepository.save(parts);
-    }
+//    public void addParts(Parts parts) {
+//        partsRepository.save(parts);
+//    }
 
     public boolean updateParts(Parts partsRes, Integer id) {
         Parts parts = partsRepository.findPartsById(id);

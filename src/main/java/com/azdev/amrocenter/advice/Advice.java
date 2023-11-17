@@ -78,18 +78,21 @@ public class Advice {
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ApiException> MethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         String msg = e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
     //ConstraintViolationException
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseEntity<ApiException> ConstraintViolationException(ConstraintViolationException e) {
         String msg = e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
     //BindException
     @ExceptionHandler(value = BindException.class)
     public ResponseEntity<ApiException> BindException(BindException e) {
         String msg = e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -97,6 +100,7 @@ public class Advice {
     @ExceptionHandler(value = JpaSystemException.class)
     public ResponseEntity<ApiException> JpaSystemException(JpaSystemException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -104,6 +108,7 @@ public class Advice {
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public ResponseEntity<ApiException> DataIntegrityViolationException(DataIntegrityViolationException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -111,6 +116,7 @@ public class Advice {
     @ExceptionHandler(value = NullPointerException.class)
     public ResponseEntity<ApiException> NullPointerException(NullPointerException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -118,6 +124,7 @@ public class Advice {
     @ExceptionHandler(value = JpaObjectRetrievalFailureException.class)
     public ResponseEntity<ApiException> JpaObjectRetrievalFailureException(JpaObjectRetrievalFailureException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -125,18 +132,21 @@ public class Advice {
     @ExceptionHandler(value = InvalidDataAccessApiUsageException.class)
     public ResponseEntity<ApiException> InvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
     ////DateTimeParseException
     @ExceptionHandler(value = DateTimeParseException.class)
     public ResponseEntity<ApiException> DateTimeParseException(DateTimeParseException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
     //IllegalArgumentException
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<ApiException> IllegalArgumentException(IllegalArgumentException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -144,12 +154,14 @@ public class Advice {
     @ExceptionHandler(value = IndexOutOfBoundsException.class)
     public ResponseEntity<ApiException> IndexOutOfBoundsException(IndexOutOfBoundsException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
     //StackOverflowErrorExample
     @ExceptionHandler(value = StackOverflowError.class)
     public ResponseEntity<ApiException> StackOverflowError(StackOverflowError e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
 
@@ -157,8 +169,18 @@ public class Advice {
     @ExceptionHandler(value = ConcurrentModificationException.class)
     public ResponseEntity<ApiException> ConcurrentModificationException(ConcurrentModificationException e) {
         String msg =  e.getMessage();
+        logger.error(msg.toString());
         return status(400).body(new ApiException(msg));
     }
+
+    @ExceptionHandler(value = NumberFormatException.class)
+    public ResponseEntity<ApiException> NumberFormatException(ConcurrentModificationException e) {
+        String msg =  e.getMessage();
+        logger.error(msg.toString());
+        return status(400).body(new ApiException(msg));
+    }
+
+
 
 //    MethodArgumentTypeMismatchException
 

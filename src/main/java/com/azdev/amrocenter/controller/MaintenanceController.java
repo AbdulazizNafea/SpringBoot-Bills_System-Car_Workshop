@@ -28,11 +28,11 @@ public class MaintenanceController {
         return ResponseEntity.status(200).body(maintenanceService.getServices(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity addServices(@RequestBody Maintenance services) {
-        maintenanceService.addServices(services);
-        return ResponseEntity.status(200).body("Services Added");
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity addServices(@RequestBody Maintenance services) {
+//        maintenanceService.addServices(services);
+//        return ResponseEntity.status(200).body("Services Added");
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateServices(@RequestBody Maintenance services, @PathVariable Integer id) {

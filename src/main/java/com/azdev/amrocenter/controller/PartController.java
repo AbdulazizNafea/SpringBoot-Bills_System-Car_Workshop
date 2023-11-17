@@ -27,11 +27,11 @@ public class PartController {
         return ResponseEntity.status(200).body(partService.getParts(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity addParts(@RequestBody Parts part) {
-        partService.addParts(part);
-        return ResponseEntity.status(200).body("Parts Added");
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity addParts(@RequestBody Parts part) {
+//        partService.addParts(part);
+//        return ResponseEntity.status(200).body("Parts Added");
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateParts(@RequestBody Parts part, @PathVariable Integer id) {

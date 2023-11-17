@@ -26,9 +26,9 @@ public class MaintenanceService {
         return maintenanceRepository.findMaintenanceById(id);
     }
 
-    public void addServices(Maintenance services) {
-        maintenanceRepository.save(services);
-    }
+//    public void addServices(Maintenance services) {
+//        maintenanceRepository.save(services);
+//    }
 
     public boolean updateServices(Maintenance servicesRes, Integer id) {
         Maintenance services = maintenanceRepository.findMaintenanceById(id);

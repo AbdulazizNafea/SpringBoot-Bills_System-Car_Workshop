@@ -2,7 +2,12 @@ package com.azdev.amrocenter.service;
 
 
 import com.azdev.amrocenter.apiException.ApiException;
+import com.azdev.amrocenter.model.Bill;
+//import com.azdev.amrocenter.model.Car;
 import com.azdev.amrocenter.model.Customer;
+import com.azdev.amrocenter.model.Parts;
+import com.azdev.amrocenter.repository.BillRepository;
+//import com.azdev.amrocenter.repository.CarRepository;
 import com.azdev.amrocenter.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +20,11 @@ public class CustomerService {
 
 
     private final CustomerRepository customerRepository;
+
+    private final BillRepository billRepository;
+//    private final CarRepository cartRepository;
+
+
 
     public List<Customer> getAllCustomer() {
         return customerRepository.findAll();
@@ -51,5 +61,19 @@ public class CustomerService {
         }
         customerRepository.delete(customer);
     }
+    //////////////////////////////////////////////////////////////////////
+
+//    @SuppressWarnings("DuplicatedCode")
+//    public void assignCarToCustomer(Integer customerId, Car car) {
+//        Customer customer = customerRepository.findCustomerById(customerId);
+//        if (customer == null) {
+//            throw new ApiException("Bill not found or created");
+//        } else if (car == null) {
+//            throw new ApiException("Customer not found or created");
+//        }
+//        car.setCustomer(customer);
+//        cartRepository.save(car);
+//    }
+
 
 }

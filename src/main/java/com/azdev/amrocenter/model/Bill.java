@@ -1,5 +1,6 @@
 package com.azdev.amrocenter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,16 @@ public class Bill {
 
     private double discount;
 
+    private String carName;
+
+    private String carType;
+
+    private String model;
+
+    private String plateNumber;
+
+    private String vehicleNumber;
+
     private LocalDate date;
 
 
@@ -35,5 +46,12 @@ public class Bill {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bill")
     private List<Maintenance> maintenance;
+
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id" , referencedColumnName = "id")
+    private Customer customer;
+
+
 
 }

@@ -21,8 +21,8 @@ public class BillController {
 
     @GetMapping("/get")
     public ResponseEntity getAllBill() {
-        List<Bill> customers = billService.getAllBill();
-        return ResponseEntity.status(200).body(customers);
+        List<Bill> bill = billService.getAllBill();
+        return ResponseEntity.status(200).body(bill);
     }
 
     @GetMapping("/get/{id}")
@@ -30,11 +30,11 @@ public class BillController {
         return ResponseEntity.status(200).body(billService.getBill(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity addBill(@RequestBody Bill bill) {
-        billService.addBill(bill);
-        return ResponseEntity.status(200).body("Bill Added");
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity addBill(@RequestBody Bill bill) {
+//        billService.addBill(bill);
+//        return ResponseEntity.status(200).body("Bill Added");
+//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateBill(@RequestBody Bill bill, @PathVariable Integer id) {
@@ -48,22 +48,37 @@ public class BillController {
         return ResponseEntity.status(200).body("deleted");
     }
 
-    @PutMapping("/addS/{billId}/{maintenanceId}")
-    public ResponseEntity test(@PathVariable Integer billId, @PathVariable Integer maintenanceId) {
-        billService.assignMaintenance(billId, maintenanceId);
+    /////////////////////////////////////////////////////
+
+    @PostMapping("/addS/{billId}")
+    public ResponseEntity assignMaintenance(@PathVariable Integer billId, @RequestBody @Valid Maintenance maintenance) {
+        billService.assignMaintenance(billId, maintenance);
         return ResponseEntity.status(200).body("service added to bill");
     }
 
 
-    @PutMapping("/addP/{billId}/{partId}")
-    public ResponseEntity test2(@PathVariable Integer billId, @PathVariable Integer partId) {
-        billService.assignPart(billId, partId);
+    @PostMapping("/addP/{billId}")
+    public ResponseEntity assignPart(@PathVariable Integer billId, @RequestBody @Valid Parts part) {
+        billService.assignPart(billId, part);
         return ResponseEntity.status(200).body("Part added to bill");
+    }
+
+    @PostMapping("/addB/{customerId}")
+    public ResponseEntity assignPart(@PathVariable Integer customerId, @RequestBody @Valid Bill bill) {
+        billService.assignBillToCustomer(customerId, bill);
+        return ResponseEntity.status(200).body("Bill added to customer");
+    }
+
+
+    @GetMapping("/getBillsByPhone/{phone}")
+    public ResponseEntity test2(@PathVariable String phone) {
+        List<Bill> bill =  billService.getBillsByCustomerPhone(phone);
+        return ResponseEntity.status(200).body(bill);
     }
 
 }
 
-    //////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 
 
