@@ -1,17 +1,17 @@
 package com.azdev.amrocenter.controller;
 
 
-import com.azdev.amrocenter.model.Bill;
+
 //import com.azdev.amrocenter.model.Car;
 import com.azdev.amrocenter.model.Customer;
 import com.azdev.amrocenter.service.CustomerService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @RestController
 @RequestMapping("api/v1/customer")
 @RequiredArgsConstructor

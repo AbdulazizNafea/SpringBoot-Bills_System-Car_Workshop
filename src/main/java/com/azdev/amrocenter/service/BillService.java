@@ -9,6 +9,7 @@ import com.azdev.amrocenter.repository.MaintenanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,14 +35,11 @@ public class BillService {
         return billRepository.findBillById(id);
     }
 
-//    public void addBill(Bill bill) {
-//        billRepository.save(bill);
-//    }
 
-    public boolean updateBill(Bill billRes, Integer id) {
+    public void updateBill(Bill billRes, Integer id) {
         Bill bill = billRepository.findBillById(id);
         if (bill == null) {
-            return false;
+            throw new ApiException("Bill not found");
         }
 
         double totalPartPrice = 0.0;
@@ -53,10 +51,6 @@ public class BillService {
         for (Maintenance m : bill.getMaintenance()) {
             totalMaintenancePrice = m.getPrice() + totalMaintenancePrice;
         }
-
-
-
-
         bill.setPaymentMethod(billRes.getPaymentMethod());
         bill.setDiscount(billRes.getDiscount());
         bill.setDescription(billRes.getDescription());
@@ -66,11 +60,10 @@ public class BillService {
         bill.setModel(billRes.getModel());
         bill.setVehicleNumber(billRes.getVehicleNumber());
         bill.setPlateNumber(billRes.getPlateNumber());
+        bill.setCarKM(billRes.getCarKM());
         bill.setTotalPrice((totalPartPrice + totalMaintenancePrice) - bill.getDiscount());
         billRepository.save(bill);
-        return true;
     }
-
     public void deleteBill(Integer id) {
         Bill bill = billRepository.findBillById(id);
         if (bill == null) {
@@ -105,10 +98,22 @@ public class BillService {
         maintenanceRepository.save(maintenance);
     }
 
-//
+    public void assignBillToCustomer(Integer customerId, Bill bill) {
+        Customer customer = customerRepository.findCustomerById(customerId);
+        if (customer == null) {
+            throw new ApiException("Bill not found or created");
+        } else if (bill == null) {
+            throw new ApiException("Customer not found or created");
+        }
+        bill.setCustomer(customer);
+        billRepository.save(bill);
+    }
+
 
 
     // get all bill by customer phone as ID ...
+//    @Query("select b from Bill b join b.customer c where c.phone = :phone order by b.date desc")
+//    List<Bill> findByCustomerPhone(@Param("phone") String phone);
     public List<Bill> getBillsByCustomerPhone(String customerPhone) {
         Customer customer = customerRepository.findCustomersByPhone(customerPhone);
         if (customer == null) {
@@ -122,15 +127,31 @@ public class BillService {
         }
     }
 
-    public void assignBillToCustomer(Integer customerId, Bill bill) {
+    //@Query("select b from Bill b where b.date >= :startDate and b.date <= :endDate order by b.date desc")
+    //List<Bill> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    // get all bill between two dates
+    // biil by date 2023/10/03 and 2023/11/27
+    public List<Bill> getBillBetweenDate(LocalDate d1, LocalDate d2) {
+        List<Bill> bills = billRepository.findByDateRange(d1, d2);
+        if (bills == null) {
+            throw new ApiException("No bills found");
+        }
+        return bills;
+    }
+
+    //@Query("select b from Bill b join b.customer c where c.id = :id order by b.date desc")
+    //List<Bill> findByCustomerId(@Param("id") Integer id);
+    //get bill by customer id
+    public List<Bill> getBillByCustomerId(Integer customerId) {
         Customer customer = customerRepository.findCustomerById(customerId);
         if (customer == null) {
-            throw new ApiException("Bill not found or created");
-        } else if (bill == null) {
-            throw new ApiException("Customer not found or created");
+            throw new ApiException("Customer not exist");
         }
-        bill.setCustomer(customer);
-        billRepository.save(bill);
+        List<Bill> bills = billRepository.findByCustomerId(customerId);
+        if (bills == null) {
+            throw new ApiException("No bills found");
+        }
+        return bills;
     }
 
 

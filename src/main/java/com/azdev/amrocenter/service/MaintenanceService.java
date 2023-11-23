@@ -26,19 +26,16 @@ public class MaintenanceService {
         return maintenanceRepository.findMaintenanceById(id);
     }
 
-//    public void addServices(Maintenance services) {
-//        maintenanceRepository.save(services);
-//    }
 
-    public boolean updateServices(Maintenance servicesRes, Integer id) {
-        Maintenance services = maintenanceRepository.findMaintenanceById(id);
-        if (services == null) {
-            return false;
+    public void updateServices(Maintenance servicesRes, Integer id) {
+        Maintenance maintenance = maintenanceRepository.findMaintenanceById(id);
+        if (maintenance == null) {
+            throw new ApiException("Maintenance not found");
+
         }
-        services.setServiceName(servicesRes.getServiceName());
-        services.setPrice(servicesRes.getPrice());
-        maintenanceRepository.save(services);
-        return true;
+        maintenance.setServiceName(servicesRes.getServiceName());
+        maintenance.setPrice(servicesRes.getPrice());
+        maintenanceRepository.save(maintenance);
     }
 
     public void deleteServices(Integer id) {

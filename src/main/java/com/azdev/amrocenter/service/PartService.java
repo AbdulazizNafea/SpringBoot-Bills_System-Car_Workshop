@@ -3,7 +3,6 @@ package com.azdev.amrocenter.service;
 
 import com.azdev.amrocenter.apiException.ApiException;
 import com.azdev.amrocenter.model.Parts;
-import com.azdev.amrocenter.repository.BillRepository;
 import com.azdev.amrocenter.repository.PartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PartService {
     private final PartRepository partsRepository;
-    private final BillRepository billRepository;
 
 
     public List<Parts> getAllParts() {
@@ -29,20 +27,14 @@ public class PartService {
         return partsRepository.findPartsById(id);
     }
 
-//    public void addParts(Parts parts) {
-//        partsRepository.save(parts);
-//    }
-
-    public boolean updateParts(Parts partsRes, Integer id) {
+    public void updateParts(Parts partsRes, Integer id) {
         Parts parts = partsRepository.findPartsById(id);
         if (parts == null) {
-            return false;
+            throw new ApiException("parts not found");
         }
         parts.setPartName(partsRes.getPartName());
         parts.setPrice(partsRes.getPrice());
-//        parts.setBill(null);
         partsRepository.save(parts);
-        return true;
     }
 
     public void deleteParts(Integer id) {

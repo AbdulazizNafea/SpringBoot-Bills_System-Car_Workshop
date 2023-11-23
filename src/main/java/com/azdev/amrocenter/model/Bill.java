@@ -38,7 +38,7 @@ public class Bill {
 
     private LocalDate date;
 
-
+    private int carKM;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bill")
