@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @RestController
 @RequestMapping("api/v1/bill")
 @RequiredArgsConstructor
@@ -29,12 +31,6 @@ public class BillController {
     public ResponseEntity getBill(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(billService.getBill(id));
     }
-
-//    @PostMapping("/add")
-//    public ResponseEntity addBill(@RequestBody Bill bill) {
-//        billService.addBill(bill);
-//        return ResponseEntity.status(200).body("Bill Added");
-//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity updateBill(@RequestBody Bill bill, @PathVariable Integer id) {
@@ -71,10 +67,27 @@ public class BillController {
 
 
     @GetMapping("/getBillsByPhone/{phone}")
-    public ResponseEntity test2(@PathVariable String phone) {
+    public ResponseEntity getBillsByPhone(@PathVariable String phone) {
         List<Bill> bill =  billService.getBillsByCustomerPhone(phone);
         return ResponseEntity.status(200).body(bill);
     }
+
+
+    @GetMapping("/getBillBetweenDate/{d1}/{d2}")
+    public ResponseEntity getBillBetweenDate(@PathVariable LocalDate d1,@PathVariable LocalDate d2) {
+        List<Bill> bill =  billService.getBillBetweenDate(d1,d2);
+        return ResponseEntity.status(200).body(bill);
+    }
+
+
+    @GetMapping("/getBillByCustomerId/{id}")
+    public ResponseEntity getBillByCustomerId(@PathVariable Integer id) {
+        List<Bill> bill =  billService.getBillByCustomerId(id);
+        return ResponseEntity.status(200).body(bill);
+    }
+
+
+
 
 }
 

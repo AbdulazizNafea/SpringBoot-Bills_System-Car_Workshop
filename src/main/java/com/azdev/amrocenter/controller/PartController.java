@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SuppressWarnings("rawtypes")
 @RestController
 @RequestMapping("api/v1/part")
 @RequiredArgsConstructor
@@ -26,13 +27,7 @@ public class PartController {
     public ResponseEntity getParts(@PathVariable Integer id) {
         return ResponseEntity.status(200).body(partService.getParts(id));
     }
-
-//    @PostMapping("/add")
-//    public ResponseEntity addParts(@RequestBody Parts part) {
-//        partService.addParts(part);
-//        return ResponseEntity.status(200).body("Parts Added");
-//    }
-
+    
     @PutMapping("/update/{id}")
     public ResponseEntity updateParts(@RequestBody Parts part, @PathVariable Integer id) {
         partService.updateParts(part, id);
@@ -41,6 +36,7 @@ public class PartController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteParts(@PathVariable Integer id) {
+        partService.deleteParts(id);
         return ResponseEntity.status(200).body("deleted");
     }
 }
